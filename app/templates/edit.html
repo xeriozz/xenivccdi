@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Server Information</title>
+	<style>
+		table {
+		  font-family: Arial, Helvetica, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+
+		td, th {
+		  border: 1px solid #ddd;
+		  padding: 8px;
+		}
+
+		tr:nth-child(even){background-color: #f2f2f2;}
+
+		tr:hover {background-color: #ddd;}
+
+		th {
+		  padding-top: 12px;
+		  padding-bottom: 12px;
+		  text-align: left;
+		  background-color: #3498DB;
+		  color: white;
+		}
+
+		input[type="submit"], .button {
+			background-color: #3498DB;
+			color: white;
+			cursor: pointer;
+			margin-left: 10px;
+			padding: 5px 10px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+		}
+
+		.button:hover {
+			background-color: #2980B9;
+		}
+
+		a {
+			text-decoration: none;
+			color: white;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
+<body>
+	<h1>Edit Server Information</h1>
+
+
+
+	{% if error %}
+	<div style="color: red;">{{ error }}</div>
+	{% endif %}
+	<form method="POST" action="">
+		<label for="servername">Server Name:</label>
+		<input type="text" name="servername" value="{{ server.servername }}"><br><br>
+		<label for="ip">IP Address:</label>
+		<input type="text" name="ip" value="{{ server.ip }}"><br><br>
+		<label for="os">Operating System:</label>
+		<input type="text" name="os" value="{{ server.os }}"><br><br>
+		<input type="submit" value="Save" class="button">
+		<a href="{{ url_for('index') }}" class="button">Cancel</a>
+	</form>
+
+</body>
+</html>

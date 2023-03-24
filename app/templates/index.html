@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servers List</title>
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #3498DB;
+            color: white;
+        }
+        form {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="submit"] {
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #3498DB;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        input[type="submit"], .show-all-btn {
+            background-color: #3498DB;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        input[type="submit"], .buttonedit {
+            background-color: #3498DB;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        input[type="submit"]:hover, .show-all-btn:hover {
+            background-color: #2980B9;
+        }
+        
+        .flashes {
+            text-align: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .flashes li {
+            display: inline-block;
+            background-color: #D4E6F1;
+            color: #4183D7;
+            border: 1px solid #D4E6F1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .search-box {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #3498DB;
+        }
+
+        .logout-btn {
+            background-color: #3498DB;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h2 {
+            color: #3498DB;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <h1>Serversliste</h1>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+	<h2>Welcome, {{ current_user.username }}, you can now add servers</h2>
+
+<div class="search-box">
+    <form method="GET" action="/">
+        <input type="text" name="search_term" value="{{ search_term }}">
+        <input type="submit" value="Search">
+        <button class="show-all-btn" type="button" onclick="window.location.href='/';">Show All</button>
+    </form>
+</div>
+
+
+
+
+	<div>
+		<form method="POST" action="">
+			<label for="servername">Server Name:</label>
+			<input type="text" name="servername">
+			<label for="ip">IP Address:</label>
+			<input type="text" name="ip">
+			<label for="os">Operating System:</label>
+			<input type="text" name="os">
+			<input type="submit" value="Add">
+		</form>
+	</div>
+
+	{% if error %}
+		<p style="color: red;">{{ error }}</p>
+	{% endif %}
+    <div class="flashes">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+	<table>
+		<thead>
+			<tr>
+				<th>Server Name</th>
+				<th>IP Address</th>
+				<th>Operating System</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for server in servers %}
+			<tr>
+				<td>{{ server.servername }}</td>
+				<td>{{ server.ip }}</td>
+				<td>{{ server.os }}</td>
+				<td><a href="{{ url_for('edit', id=server.id) }}" class="buttonedit">Edit</a></td>
+				<td>
+					<form method="POST" action="{{ url_for('delete', id=server.id) }}">
+						<input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this server?')">
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>

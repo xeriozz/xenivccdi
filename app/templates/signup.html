@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F5F9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #4183D7;
+        }
+        
+        form {
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 50px;
+            background-color: #FFFFFF;
+            border: 1px solid #D4E6F1;
+            padding: 30px;
+            border-radius: 5px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #4183D7;
+        }
+        
+        input[type=text], input[type=password], input[type=email] {
+            padding: 10px;
+            border: 1px solid #D4E6F1;
+            border-radius: 5px;
+            width: 90%;
+            margin-bottom: 10px;
+        }
+        
+        input[type=submit] {
+            background-color: #3498DB;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        input[type=submit]:hover {
+            background-color: #2980B9;
+        }
+        
+        p {
+            text-align: center;
+            margin-top: 20px;
+            color: #4183D7;
+        }
+        
+        a {
+            color: #3498DB;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <h1>Sign Up</h1>
+    <form method="POST" action="/signup">
+        <label>Username:</label>
+        <input type="text" name="username" required>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Password:</label>
+        <input type="password" name="password" minlength="8" required>
+        <input type="submit" value="Sign Up">
+    </form>
+    <p>Already have an account? <a href="/">Log in</a></p>
+</body>
+</html>
